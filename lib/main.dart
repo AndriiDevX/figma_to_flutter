@@ -1,4 +1,5 @@
 import 'package:figma_to_flutter/screens/crypto_home.dart';
+import 'package:figma_to_flutter/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,7 +13,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     
     return const MaterialApp(
-      home: CryptoHome(), debugShowCheckedModeBanner: false,
+      home: ProfileScreen(), debugShowCheckedModeBanner: false,
     );
   }
 }
