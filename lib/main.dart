@@ -1,4 +1,5 @@
 import 'package:figma_to_flutter/screens/crypto_home.dart';
+import 'package:figma_to_flutter/screens/home_real_estate.dart';
 import 'package:figma_to_flutter/screens/profile_screen.dart';
 import 'package:figma_to_flutter/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     
     return const MaterialApp(
-      home: SettingsScreen(), debugShowCheckedModeBanner: false,
+      home: HomeRealEstate(), debugShowCheckedModeBanner: false,
     );
   }
 }
