@@ -1,3 +1,4 @@
+import 'package:figma_to_flutter/screens/bank_home_page_screen.dart';
 import 'package:figma_to_flutter/screens/crypto_home.dart';
 import 'package:figma_to_flutter/screens/home_real_estate.dart';
 import 'package:figma_to_flutter/screens/profile_screen.dart';
@@ -15,7 +16,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     
     return const MaterialApp(
-      home: HomeRealEstate(), debugShowCheckedModeBanner: false,
+      home: BankHomePageScreen(), debugShowCheckedModeBanner: false,
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:ui';
 
 class BankHomePageScreen extends StatelessWidget {
   const BankHomePageScreen({super.key});
@@ -29,14 +30,15 @@ class BankHomePageScreen extends StatelessWidget {
                     child: Column(
                       children: const [
                         BankCardDeck(),
-
-                        SizedBox(height: 24), 
+                        SizedBox(height: 24),
+                        FeaturesGrid(),
                       ],
                     ),
                   ),
                 ),
               ),
             ),
+
             Positioned(
               top: 20,
               left: 20,
@@ -99,10 +101,26 @@ class BankHomePageScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: Container(
-        height: 80,
-        color: Colors.white,
-        child: const Center(child: Text('Bottom Nav Placeholder')),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.white,
+        selectedItemColor: const Color(0xFF0F47B2),
+        unselectedItemColor: Colors.grey.withOpacity(0.6),
+        showSelectedLabels: true,
+        showUnselectedLabels: false,
+        currentIndex: 0,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.mail_outline),
+            label: 'Messages',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings_outlined),
+            label: 'Settings',
+          ),
+        ],
       ),
     );
   }
@@ -242,6 +260,121 @@ class BankCardDeck extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class FeatureItem {
+  final IconData icon;
+  final Color iconColor;
+  final String title;
+
+  const FeatureItem({
+    required this.icon,
+    required this.iconColor,
+    required this.title,
+  });
+}
+
+class FeaturesGrid extends StatelessWidget {
+  const FeaturesGrid({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final List<FeatureItem> items = [
+      const FeatureItem(
+        icon: Icons.account_balance_wallet,
+        iconColor: Color(0xFF0F47B2),
+        title: "Account\nand Card",
+      ),
+      const FeatureItem(
+        icon: Icons.swap_horizontal_circle_outlined,
+        iconColor: Color(0xFFE63946),
+        title: "Transfer",
+      ),
+      const FeatureItem(
+        icon: Icons.credit_card,
+        iconColor: Color(0xFF2A9D8F),
+        title: "Withdraw",
+      ),
+      const FeatureItem(
+        icon: Icons.phone_android,
+        iconColor: Color(0xFFF4A261),
+        title: "Mobile\nprepaid",
+      ),
+      const FeatureItem(
+        icon: Icons.receipt_long,
+        iconColor: Color(0xFF2A9D8F),
+        title: "Pay the\nbill",
+      ),
+      const FeatureItem(
+        icon: Icons.savings_outlined,
+        iconColor: Color(0xFF0F47B2),
+        title: "Save\nonline",
+      ),
+      const FeatureItem(
+        icon: Icons.payment,
+        iconColor: Color(0xFFE63946),
+        title: "Credit\ncard",
+      ),
+      const FeatureItem(
+        icon: Icons.analytics_outlined,
+        iconColor: Color(0xFF1D3557),
+        title: "Transaction\nreport",
+      ),
+      const FeatureItem(
+        icon: Icons.assignment_ind_outlined,
+        iconColor: Color(0xFFE63946),
+        title: "Beneficiary",
+      ),
+    ];
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+        mainAxisSpacing: 16,
+        crossAxisSpacing: 16,
+        childAspectRatio: 0.95,
+      ),
+      itemCount: items.length,
+      itemBuilder: (context, index) {
+        final item = items[index];
+        return Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(18),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.03),
+                blurRadius: 10,
+                offset: Offset(0, 5),
+              ),
+            ],
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                padding: EdgeInsets.all(10),
+                color: item.iconColor.withOpacity(0.1),
+              ),
+              Icon(item.icon, color: item.iconColor, size: 28),
+              SizedBox(height: 10),
+              Text(
+                item.title,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Color(0xFF4A4A4A),
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  height: 1.2,
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
