@@ -97,59 +97,125 @@ class VitalTracker extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 20),
-              
-Column(
-  children: [
-    Row(
-      children: [
-        Expanded(
-          child: MetricCard(
-            icon: Icons.favorite_border_rounded,
-            title: 'Heart Rate',
-            value: '78',
-            unit: 'bpm',
-            accentColor: Color(0xFFE94A5F), 
+
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: MetricCard(
+                          icon: Icons.favorite_border_rounded,
+                          title: 'Heart Rate',
+                          value: '78',
+                          unit: 'bpm',
+                          accentColor: Color(0xFFE94A5F),
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: MetricCard(
+                          icon: Icons.flash_on_rounded,
+                          title: 'Exercise',
+                          value: '24',
+                          unit: 'min',
+                          accentColor: Color(0xFF5C51A6),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: MetricCard(
+                          icon: Icons.flag_outlined,
+                          title: 'Walking',
+                          value: '10',
+                          unit: 'km',
+                          accentColor: Color(0xFF2A9D8F),
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: MetricCard(
+                          icon: Icons.dark_mode_outlined,
+                          title: 'Sleep',
+                          value: '8',
+                          unit: 'hrs',
+                          accentColor: Color(0xFF3A86C8),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(height: 32),
+            ],
           ),
         ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: MetricCard(
-            icon: Icons.flash_on_rounded,
-            title: 'Exercise',
-            value: '24',
-            unit: 'min',
-            accentColor: Color(0xFF5C51A6), 
+      ),
+      bottomNavigationBar: SafeArea(
+        child: Container(
+          margin: const EdgeInsets.fromLTRB(24, 0, 24, 20),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+          decoration: BoxDecoration(
+            color: Colors.white.withOpacity(0.85),
+            borderRadius: BorderRadius.circular(32),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.03),
+                blurRadius: 15,
+                offset: const Offset(0, -4),
+              ),
+            ],
           ),
-        ),
-      ],
-    ),
-    const SizedBox(height: 16),
-    Row(
-      children: [
-        Expanded(
-          child: MetricCard(
-            icon: Icons.flag_outlined,
-            title: 'Walking',
-            value: '10',
-            unit: 'km',
-            accentColor: Color(0xFF2A9D8F), 
-          ),
-        ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: MetricCard(
-            icon: Icons.dark_mode_outlined,
-            title: 'Sleep',
-            value: '8',
-            unit: 'hrs',
-            accentColor: Color(0xFF3A86C8), 
-          ),
-        ),
-      ],
-    ),
-  ],
-),
-const SizedBox(height: 32),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.grid_view_rounded,
+                  color: Colors.black,
+                  size: 26,
+                ),
+              ),
+              IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.donut_large_rounded,
+                  color: Colors.black.withOpacity(0.3),
+                  size: 26,
+                ),
+              ),
+              GestureDetector(
+                onTap: () {},
+                child: Container(
+                  width: 52,
+                  height: 52,
+                  decoration: const BoxDecoration(
+                    color: Color(0xFF222831),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(Icons.add, color: Colors.white, size: 28),
+                ),
+              ),
+              IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.notifications_none_rounded,
+                  color: Colors.black.withOpacity(0.3),
+                  size: 26,
+                ),
+              ),
+              IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.person_outline_rounded,
+                  color: Colors.black.withOpacity(0.3),
+                  size: 26,
+                ),
+              ),
             ],
           ),
         ),
