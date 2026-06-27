@@ -4,6 +4,7 @@ import 'package:figma_to_flutter/screens/home_real_estate.dart';
 import 'package:figma_to_flutter/screens/music_player_screen.dart';
 import 'package:figma_to_flutter/screens/profile_screen.dart';
 import 'package:figma_to_flutter/screens/settings_screen.dart';
+import 'package:figma_to_flutter/screens/smart_home_homepage.dart';
 import 'package:figma_to_flutter/screens/vital_tracker.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +19,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     
     return const MaterialApp(
-      home: VitalTracker(), debugShowCheckedModeBanner: false,
+      home: SmartHomeHomepage(), debugShowCheckedModeBanner: false,
     );
   }
 }
