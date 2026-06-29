@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import '../core/app_colors.dart';
+import '../widgets/profile/profile_menu_item.dart';
+import '../widgets/profile/header_clipper.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -6,7 +9,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF191B1F),
+      backgroundColor: AppColors.profileBg,
       body: Column(
         children: [
           ClipPath(
@@ -14,18 +17,17 @@ class ProfileScreen extends StatelessWidget {
             child: Container(
               height: 220,
               width: double.infinity,
-              color: const Color(0xFF4D5151),
+              color: AppColors.profileHeader,
               padding: const EdgeInsets.only(top: 60, left: 24, right: 24),
-              child: Row(
-                
+              child: const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Icon(Icons.notifications_none_rounded, color: Colors.white, size: 28),
+                  Icon(Icons.notifications_none_rounded, color: Colors.white, size: 28),
                   Row(
                     children: [
-                      const Icon(Icons.history, color: Colors.white, size: 28),
-                      const SizedBox(width: 16),
-                      const Icon(Icons.more_vert, color: Colors.white, size: 28),
+                      Icon(Icons.history, color: Colors.white, size: 28),
+                      SizedBox(width: 16),
+                      Icon(Icons.more_vert, color: Colors.white, size: 28),
                     ],
                   ),
                 ],
@@ -44,7 +46,7 @@ class ProfileScreen extends StatelessWidget {
                       children: [
                         const CircleAvatar(
                           radius: 55,
-                          backgroundColor: Color(0xFF8CD2E6),
+                          backgroundColor: AppColors.profileCyan,
                           child: Icon(Icons.person, size: 65, color: Colors.white),
                         ),
                         Positioned(
@@ -53,7 +55,7 @@ class ProfileScreen extends StatelessWidget {
                           child: Container(
                             padding: const EdgeInsets.all(6),
                             decoration: const BoxDecoration(
-                              color: Color(0xFF191B1F),
+                              color: AppColors.profileBg,
                               shape: BoxShape.circle,
                             ),
                             child: const Icon(
@@ -82,7 +84,7 @@ class ProfileScreen extends StatelessWidget {
                         Text(
                           'testemail1@gmail.com',
                           style: TextStyle(
-                            color: Colors.white.withOpacity(0.6),
+                            color: Colors.white.withValues(alpha: 0.6),
                             fontSize: 13,
                           ),
                         ),
@@ -90,7 +92,7 @@ class ProfileScreen extends StatelessWidget {
                         Text(
                           '+084 8392 923 93',
                           style: TextStyle(
-                            color: Colors.white.withOpacity(0.6),
+                            color: Colors.white.withValues(alpha: 0.6),
                             fontSize: 13,
                           ),
                         ),
@@ -101,23 +103,23 @@ class ProfileScreen extends StatelessWidget {
                     offset: const Offset(0, -20),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: const Color(0xFF212327),
+                        color: AppColors.profileContainer,
                         borderRadius: BorderRadius.circular(16),
                       ),
-                      child: Column(
+                      child: const Column(
                         children: [
-                          const ProfileMenuItem(
+                          ProfileMenuItem(
                             icon: Icons.badge_outlined,
                             title: 'Edit profile information',
                           ),
-                          Divider(color: Colors.white.withOpacity(0.08), height: 1),
-                          const ProfileMenuItem(
+                          Divider(color: Colors.white12, height: 1),
+                          ProfileMenuItem(
                             icon: Icons.notifications_none_rounded,
                             title: 'Notifications',
                             trailingText: 'ON',
                           ),
-                          Divider(color: Colors.white.withOpacity(0.08), height: 1),
-                          const ProfileMenuItem(
+                          Divider(color: Colors.white12, height: 1),
+                          ProfileMenuItem(
                             icon: Icons.g_translate,
                             title: 'Language',
                             trailingText: 'English',
@@ -131,17 +133,17 @@ class ProfileScreen extends StatelessWidget {
                     offset: const Offset(0, -20),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: const Color(0xFF212327),
+                        color: AppColors.profileContainer,
                         borderRadius: BorderRadius.circular(16),
                       ),
-                      child: Column(
+                      child: const Column(
                         children: [
-                          const ProfileMenuItem(
+                          ProfileMenuItem(
                             icon: Icons.shield_outlined,
                             title: 'Security',
                           ),
-                          Divider(color: Colors.white.withOpacity(0.08), height: 1),
-                          const ProfileMenuItem(
+                          Divider(color: Colors.white12, height: 1),
+                          ProfileMenuItem(
                             icon: Icons.wb_sunny_outlined,
                             title: 'Theme',
                             trailingText: 'Light mode',
@@ -155,22 +157,22 @@ class ProfileScreen extends StatelessWidget {
                     offset: const Offset(0, -20),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: const Color(0xFF212327),
+                        color: AppColors.profileContainer,
                         borderRadius: BorderRadius.circular(16),
                       ),
-                      child: Column(
+                      child: const Column(
                         children: [
-                          const ProfileMenuItem(
+                          ProfileMenuItem(
                             icon: Icons.people_outline,
                             title: 'Help & Support',
                           ),
-                          Divider(color: Colors.white.withOpacity(0.08), height: 1),
-                          const ProfileMenuItem(
+                          Divider(color: Colors.white12, height: 1),
+                          ProfileMenuItem(
                             icon: Icons.chat_bubble_outline,
                             title: 'Contact us',
                           ),
-                          Divider(color: Colors.white.withOpacity(0.08), height: 1),
-                          const ProfileMenuItem(
+                          Divider(color: Colors.white12, height: 1),
+                          ProfileMenuItem(
                             icon: Icons.lock_outline,
                             title: 'Privacy policy',
                           ),
@@ -187,73 +189,4 @@ class ProfileScreen extends StatelessWidget {
       ),
     );
   }
-}
-
-class ProfileMenuItem extends StatelessWidget {
-  final IconData icon;
-  final String title;
-  final String? trailingText;
-
-  const ProfileMenuItem({
-    super.key,
-    required this.icon,
-    required this.title,
-    this.trailingText,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
-      child: Row(
-        children: [
-          Icon(icon, color: Colors.white, size: 24),
-          const SizedBox(width: 16),
-          Text(
-            title,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          const Spacer(),
-          if (trailingText != null)
-            Text(
-              trailingText!,
-              style: const TextStyle(
-                color: Color(0xFFE5A644),
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-        ],
-      ),
-    );
-  }
-}
-
-class HeaderClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    Path path = Path();
-    path.lineTo(0, size.height - 50);
-
-    var controlPoint = Offset(size.width / 2, size.height + 20);
-    var endPoint = Offset(size.width, size.height - 50);
-
-    path.quadraticBezierTo(
-      controlPoint.dx,
-      controlPoint.dy,
-      endPoint.dx,
-      endPoint.dy,
-    );
-
-    path.lineTo(size.width, 0);
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }

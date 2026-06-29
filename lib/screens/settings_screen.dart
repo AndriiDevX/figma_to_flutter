@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import '../core/app_colors.dart';
+import '../widgets/settings/dark_menu_block.dart';
+import '../widgets/settings/dark_menu_item.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -6,14 +9,14 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF191B1F),
+      backgroundColor: AppColors.darkBackground,
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 'Settings',
                 style: TextStyle(
                   fontSize: 30,
@@ -47,8 +50,7 @@ class SettingsScreen extends StatelessWidget {
                 style: TextStyle(color: Colors.grey, fontSize: 16),
               ),
               const SizedBox(height: 12),
-
-              DarkMenuBlock(
+              const DarkMenuBlock(
                 children: [
                   DarkMenuItem(
                     icon: Icons.credit_card,
@@ -70,7 +72,7 @@ class SettingsScreen extends StatelessWidget {
                 style: TextStyle(color: Colors.grey, fontSize: 16),
               ),
               const SizedBox(height: 12),
-              DarkMenuBlock(
+              const DarkMenuBlock(
                 children: [
                   DarkMenuItem(
                     icon: Icons.delete_outline,
@@ -85,7 +87,7 @@ class SettingsScreen extends StatelessWidget {
                 style: TextStyle(color: Colors.grey, fontSize: 16),
               ),
               const SizedBox(height: 12),
-              DarkMenuBlock(
+              const DarkMenuBlock(
                 children: [
                   DarkMenuItem(
                     icon: Icons.flag_outlined,
@@ -102,52 +104,6 @@ class SettingsScreen extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class DarkMenuItem extends StatelessWidget {
-  final IconData icon;
-  final String title;
-
-  const DarkMenuItem({super.key, required this.icon, required this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-      child: Row(
-        children: [
-          Icon(icon, color: const Color(0xFFA1A1A1), size: 24),
-          const SizedBox(width: 16),
-          Text(
-            title,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class DarkMenuBlock extends StatelessWidget {
-  final List<Widget> children;
-
-  const DarkMenuBlock({super.key, required this.children});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: Color(0xFF212327),
-      ),
-
-      child: Column(children: children),
     );
   }
 }

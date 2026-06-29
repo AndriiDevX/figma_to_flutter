@@ -1,4 +1,7 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
+import '../core/app_colors.dart';
+import '../widgets/smart_home/circle_icon_button.dart';
+import '../widgets/smart_home/module_card.dart';
 
 class SmartHomeHomepage extends StatefulWidget {
   const SmartHomeHomepage({super.key});
@@ -20,11 +23,8 @@ class _SmartHomeHomepageState extends State<SmartHomeHomepage> {
 
   @override
   Widget build(BuildContext context) {
-    const backgroundColor = Color(0xFFF5F7FA);
-    const cardColor = Color(0xFFFFFFFF);
-
     return Scaffold(
-      backgroundColor: backgroundColor,
+      backgroundColor: AppColors.smartHomeBackground,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
@@ -33,7 +33,7 @@ class _SmartHomeHomepageState extends State<SmartHomeHomepage> {
             children: [
               _buildHeader(),
               const SizedBox(height: 28),
-              _buildGridModules(cardColor),
+              _buildGridModules(),
               const SizedBox(height: 24),
               _buildRoomFilter(),
               const SizedBox(height: 20),
@@ -47,7 +47,6 @@ class _SmartHomeHomepageState extends State<SmartHomeHomepage> {
     );
   }
 
-  
   Widget _buildHeader() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -84,8 +83,7 @@ class _SmartHomeHomepageState extends State<SmartHomeHomepage> {
     );
   }
 
-  
-  Widget _buildGridModules(Color cardColor) {
+  Widget _buildGridModules() {
     return Column(
       children: [
         Row(
@@ -107,33 +105,32 @@ class _SmartHomeHomepageState extends State<SmartHomeHomepage> {
     );
   }
 
-  
   Widget _buildDoorCard() {
-    return _ModuleCard(
+    return const ModuleCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Front Doors',
             style: TextStyle(
               fontWeight: FontWeight.w600,
               fontSize: 14,
-              color: Color(0xFF1A1A2E),
+              color: AppColors.textDark,
             ),
           ),
-          const SizedBox(height: 2),
+          SizedBox(height: 2),
           Text(
             'Closed - 95% Battery Left',
-            style: TextStyle(fontSize: 11, color: Colors.grey[500]),
+            style: TextStyle(fontSize: 11, color: Colors.grey),
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: 16),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _CircleIconButton(icon: Icons.lock_outline),
-              const Icon(Icons.chevron_right, color: Colors.grey, size: 18),
-              const Icon(Icons.chevron_right, color: Colors.grey, size: 18),
-              _CircleIconButton(icon: Icons.lock_open_outlined),
+              CircleIconButton(icon: Icons.lock_outline),
+              Icon(Icons.chevron_right, color: Colors.grey, size: 18),
+              Icon(Icons.chevron_right, color: Colors.grey, size: 18),
+              CircleIconButton(icon: Icons.lock_open_outlined),
             ],
           ),
         ],
@@ -141,70 +138,46 @@ class _SmartHomeHomepageState extends State<SmartHomeHomepage> {
     );
   }
 
- 
   Widget _buildSharedUsersCard() {
-    final List<String> avatarUrls = [
+    const List<String> avatarUrls = [
       'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100',
       'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100',
       'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100',
       'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100',
     ];
 
-    return _ModuleCard(
+    return const ModuleCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+              Text(
                 'Shared Users',
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 14,
-                  color: Color(0xFF1A1A2E),
+                  color: AppColors.textDark,
                 ),
               ),
-              Container(
-                width: 22,
-                height: 22,
-                decoration: const BoxDecoration(
-                  color: Color(0xFF3B82F6),
-                  shape: BoxShape.circle,
-                ),
-                child: const Icon(Icons.add, color: Colors.white, size: 14),
-              ),
+              _AddUserButton(),
             ],
           ),
-          const SizedBox(height: 2),
+          SizedBox(height: 2),
           Text(
             '4 People',
-            style: TextStyle(fontSize: 11, color: Colors.grey[500]),
+            style: TextStyle(fontSize: 11, color: Colors.grey),
           ),
-          const SizedBox(height: 16),
-          SizedBox(
-            height: 32,
-            child: Stack(
-              children: List.generate(avatarUrls.length, (i) {
-                return Positioned(
-                  left: i * 22.0,
-                  child: CircleAvatar(
-                    radius: 16,
-                    backgroundImage: NetworkImage(avatarUrls[i]),
-                    backgroundColor: Colors.white,
-                  ),
-                );
-              }),
-            ),
-          ),
+          SizedBox(height: 16),
+          _AvatarStack(avatarUrls: avatarUrls),
         ],
       ),
     );
   }
 
-  
   Widget _buildOfficeLightCard() {
-    return _ModuleCard(
+    return ModuleCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -213,7 +186,7 @@ class _SmartHomeHomepageState extends State<SmartHomeHomepage> {
             style: TextStyle(
               fontWeight: FontWeight.w600,
               fontSize: 14,
-              color: Color(0xFF1A1A2E),
+              color: AppColors.textDark,
             ),
           ),
           const SizedBox(height: 2),
@@ -222,36 +195,15 @@ class _SmartHomeHomepageState extends State<SmartHomeHomepage> {
             style: TextStyle(fontSize: 11, color: Colors.grey[500]),
           ),
           const SizedBox(height: 16),
+          const _LightStatusRow(),
+          const SizedBox(height: 16),
           Row(
-            children: [
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
-                decoration: BoxDecoration(
-                  color: const Color(0xFF4ADE80),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: const Text(
-                  'On',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 13,
-                  ),
-                ),
-              ),
-              const SizedBox(width: 8),
-              const Icon(Icons.chevron_right, color: Colors.grey, size: 18),
-              const Icon(Icons.chevron_right, color: Colors.grey, size: 18),
-              const SizedBox(width: 4),
-              Text(
-                'Off',
-                style: TextStyle(
-                  fontSize: 13,
-                  color: Colors.grey[400],
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: const [
+              CircleIconButton(icon: Icons.lock_outline),
+              Icon(Icons.chevron_right, color: Colors.grey, size: 18),
+              Icon(Icons.chevron_right, color: Colors.grey, size: 18),
+              CircleIconButton(icon: Icons.lock_outline),
             ],
           ),
         ],
@@ -259,33 +211,36 @@ class _SmartHomeHomepageState extends State<SmartHomeHomepage> {
     );
   }
 
-  
   Widget _buildAddModulesCard() {
-    return _ModuleCard(
+    return const ModuleCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Add Edit Modules',
             style: TextStyle(
               fontWeight: FontWeight.w600,
               fontSize: 14,
-              color: Color(0xFF1A1A2E),
+              color: AppColors.textDark,
             ),
           ),
-          const SizedBox(height: 2),
+          SizedBox(height: 2),
           Text(
             'Garage, Doors, and more',
-            style: TextStyle(fontSize: 11, color: Colors.grey[500]),
+            style: TextStyle(fontSize: 11, color: Colors.grey),
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: 16),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _CircleIconButton(icon: Icons.lock_outline),
-              const Icon(Icons.chevron_right, color: Colors.grey, size: 18),
-              const Icon(Icons.chevron_right, color: Colors.grey, size: 18),
-              _CircleIconButton(icon: Icons.lock_outline),
+              CircleIconButton(icon: Icons.add),
+              SizedBox(width: 12),
+              Text(
+                '4 Modules',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ],
           ),
         ],
@@ -293,7 +248,6 @@ class _SmartHomeHomepageState extends State<SmartHomeHomepage> {
     );
   }
 
-  
   Widget _buildRoomFilter() {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
@@ -304,54 +258,21 @@ class _SmartHomeHomepageState extends State<SmartHomeHomepage> {
             onTap: () => setState(() => _selectedRoomIndex = i),
             child: Container(
               margin: const EdgeInsets.only(right: 10),
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               decoration: BoxDecoration(
-                color: selected ? Colors.transparent : Colors.transparent,
+                color: selected ? AppColors.skyBlue.withValues(alpha: 0.1) : AppColors.lightGrey,
+                borderRadius: BorderRadius.circular(16),
                 border: Border.all(
-                  color: selected
-                      ? const Color(0xFFEF4444)
-                      : Colors.grey.withValues(alpha: 0.3),
-                  width: selected ? 1.8 : 1,
+                  color: selected ? AppColors.skyBlue : Colors.grey.withValues(alpha: 0.3),
+                  width: selected ? 1.5 : 1,
                 ),
-                borderRadius: BorderRadius.circular(20),
               ),
-              child: Row(
-                children: [
-                  Text(
-                    _rooms[i],
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: selected
-                          ? FontWeight.w600
-                          : FontWeight.normal,
-                      color: selected
-                          ? const Color(0xFFEF4444)
-                          : Colors.grey[600],
-                    ),
-                  ),
-                  if (selected) ...[
-                    const SizedBox(width: 6),
-                    Container(
-                      width: 18,
-                      height: 18,
-                      decoration: const BoxDecoration(
-                        color: Color(0xFFEF4444),
-                        shape: BoxShape.circle,
-                      ),
-                      child: const Center(
-                        child: Text(
-                          '4',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ],
+              child: Text(
+                _rooms[i],
+                style: TextStyle(
+                  color: selected ? AppColors.skyBlue : AppColors.textDark,
+                  fontWeight: selected ? FontWeight.w700 : FontWeight.normal,
+                ),
               ),
             ),
           );
@@ -360,99 +281,46 @@ class _SmartHomeHomepageState extends State<SmartHomeHomepage> {
     );
   }
 
-
   Widget _buildLatestRoomView() {
-    return Column(
+    return const Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text(
+            Text(
               'Latest Room View',
               style: TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF1A1A2E),
+                color: AppColors.textDark,
               ),
             ),
             Text(
               'See All',
               style: TextStyle(
                 fontSize: 13,
-                color: Colors.blue[600],
+                color: Colors.blue,
                 fontWeight: FontWeight.w500,
               ),
             ),
           ],
         ),
-        const SizedBox(height: 12),
-       
-        ClipRRect(
-          borderRadius: BorderRadius.circular(16),
-          child: Stack(
-            children: [
-              Image.network(
-                'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600',
-                height: 190,
-                width: double.infinity,
-                fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) => Container(
-                  height: 190,
-                  color: Colors.grey[300],
-                  child: const Icon(Icons.image, size: 50, color: Colors.grey),
-                ),
-              ),
-              Positioned(
-                top: 12,
-                left: 12,
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  decoration: BoxDecoration(
-                    color: Colors.black.withValues(alpha: 0.55),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 7,
-                        height: 7,
-                        decoration: const BoxDecoration(
-                          color: Color(0xFFEF4444),
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                      const SizedBox(width: 5),
-                      const Text(
-                        'Live',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
+        SizedBox(height: 12),
+        _LatestRoomImage(),
       ],
     );
   }
 
-  
   Widget _buildBottomNav() {
-    const activeColor = Color(0xFF3B82F6);
+    const activeColor = AppColors.skyBlue;
     final inactiveColor = Colors.grey[400]!;
 
-    final items = [
-      (Icons.home_rounded, 'Home'),
-      (Icons.emoji_emotions_outlined, 'Smart'),
-      (Icons.show_chart_rounded, 'Reports'),
-      (Icons.settings_outlined, 'Settings'),
+    const items = [
+      _NavItem(Icons.home_rounded, 'Home'),
+      _NavItem(Icons.emoji_emotions_outlined, 'Smart'),
+      _NavItem(Icons.show_chart_rounded, 'Reports'),
+      _NavItem(Icons.settings_outlined, 'Settings'),
     ];
 
     return Container(
@@ -479,19 +347,17 @@ class _SmartHomeHomepageState extends State<SmartHomeHomepage> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Icon(
-                      items[i].$1,
+                      items[i].icon,
                       color: selected ? activeColor : inactiveColor,
                       size: 24,
                     ),
                     const SizedBox(height: 3),
                     Text(
-                      items[i].$2,
+                      items[i].label,
                       style: TextStyle(
                         fontSize: 11,
                         color: selected ? activeColor : inactiveColor,
-                        fontWeight: selected
-                            ? FontWeight.w600
-                            : FontWeight.normal,
+                        fontWeight: selected ? FontWeight.w600 : FontWeight.normal,
                       ),
                     ),
                   ],
@@ -505,47 +371,148 @@ class _SmartHomeHomepageState extends State<SmartHomeHomepage> {
   }
 }
 
-
-
-class _ModuleCard extends StatelessWidget {
-  final Widget child;
-  const _ModuleCard({required this.child});
+class _AddUserButton extends StatelessWidget {
+  const _AddUserButton();
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.04),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
-          ),
-        ],
+      width: 22,
+      height: 22,
+      decoration: const BoxDecoration(
+        color: AppColors.skyBlue,
+        shape: BoxShape.circle,
       ),
-      child: child,
+      child: const Icon(Icons.add, color: Colors.white, size: 14),
     );
   }
 }
 
-class _CircleIconButton extends StatelessWidget {
-  final IconData icon;
-  const _CircleIconButton({required this.icon});
+class _AvatarStack extends StatelessWidget {
+  final List<String> avatarUrls;
+
+  const _AvatarStack({required this.avatarUrls});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 34,
-      height: 34,
-      decoration: BoxDecoration(
-        color: Colors.grey[100],
-        shape: BoxShape.circle,
-        border: Border.all(color: Colors.grey.withValues(alpha: 0.2)),
+    return SizedBox(
+      height: 32,
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: List.generate(avatarUrls.length, (i) {
+          return Positioned(
+            left: i * 22.0,
+            child: CircleAvatar(
+              radius: 16,
+              backgroundImage: NetworkImage(avatarUrls[i]),
+              backgroundColor: Colors.white,
+            ),
+          );
+        }),
       ),
-      child: Icon(icon, size: 16, color: Colors.grey[600]),
     );
   }
+}
+
+class _LightStatusRow extends StatelessWidget {
+  const _LightStatusRow();
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
+          decoration: BoxDecoration(
+            color: AppColors.green,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: const Text(
+            'On',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w600,
+              fontSize: 13,
+            ),
+          ),
+        ),
+        const SizedBox(width: 8),
+        const Icon(Icons.chevron_right, color: Colors.grey, size: 18),
+        const Icon(Icons.chevron_right, color: Colors.grey, size: 18),
+        const SizedBox(width: 4),
+        Text(
+          'Off',
+          style: TextStyle(
+            fontSize: 13,
+            color: Colors.grey[400],
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _LatestRoomImage extends StatelessWidget {
+  const _LatestRoomImage();
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(16),
+      child: Stack(
+        children: [
+          Image.network(
+            'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600',
+            height: 190,
+            width: double.infinity,
+            fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) => Container(
+              height: 190,
+              color: Colors.grey[300],
+              child: const Icon(Icons.image, size: 50, color: Colors.grey),
+            ),
+          ),
+          Positioned(
+            top: 12,
+            left: 12,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              decoration: BoxDecoration(
+                color: Colors.black.withValues(alpha: 0.55),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    width: 7,
+                    height: 7,
+                    decoration: const BoxDecoration(
+                      color: AppColors.red,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                  const SizedBox(width: 5),
+                  const Text(
+                    'Live',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _NavItem {
+  final IconData icon;
+  final String label;
+  const _NavItem(this.icon, this.label);
 }
